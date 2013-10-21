@@ -1,12 +1,14 @@
 (ns betfair-lib.exchange
-  (:use [betfair.models]
-        [betfair.global]
-        [betfair.util]
-        [clojure.contrib.string :only (split)]
-        [clj-time.coerce :only (from-long to-long)])
+  (:use [betfair-lib.models]
+        [betfair-lib.global]
+        [betfair-lib.util]
+        [clojure.string :only (split)]
+        [clj-time.coerce :only (from-long to-long)]
+        [clj-time.format]
+        )
   (:import (demo.handler ExchangeAPI)
            (java.util Calendar)
-           (betfair.models MarketSummary Event Market Runner MarketPrice RunnerPrice Price MUbet)
+           (betfair-lib.models MarketSummary Event Market Runner MarketPrice RunnerPrice Price MUbet)
            (generated.exchange BFExchangeServiceStub BFExchangeServiceStub$APIRequestHeader BFExchangeServiceStub$GetAllMarketsReq BFExchangeServiceStub$GetAllMarkets BFExchangeServiceStub$PlaceBets BFExchangeServiceStub$UpdateBets BFExchangeServiceStub$ArrayOfInt BFExchangeServiceStub$ArrayOfCountryCode)))
 
 
@@ -15,7 +17,7 @@
 
 (defn get-funds
   ([] (get-funds exchange-uk))
-  ([exchange] 
+  ([exchange]
      (let [funds (ExchangeAPI/getAccountFunds exchange *context*)]
        {:balance (.getBalance funds)
         :avail_balance (.getAvailBalance funds)
@@ -23,13 +25,13 @@
         :current_betfair_points (.getCurrentBetfairPoints funds)
         :exposure (.getExposure funds)
         :expo_limit (.getExpoLimit funds)})))
-         
+
 (defn get-balance
   ([] (get-balance exchange-uk))
   ([exchange]
      (.getBalance (ExchangeAPI/getAccountFunds exchange *context*))))
 
-    
+
 (defn get_market_profit_and_loss[]
     (not-implemented)
     )
@@ -49,7 +51,7 @@
                 (vec (.getEventId (.getEventHierarchy market)))
                 (.getEventTypeId market)
                 (.getInterval market)
-                (from-long (.getLastRefresh market)) 
+                (from-long (.getLastRefresh market))
                 (.getLicenceId market)
                 (.getMarketBaseRate market)
                 (.getMarketDescription market)
@@ -58,7 +60,7 @@
                 (.getMarketId market)
                 (from-long (.getTimeInMillis (.getMarketSuspendTime market)))
                 (from-long (.getTimeInMillis (.getMarketTime market)))
-                (str (.getMarketType market)) 
+                (str (.getMarketType market))
                 (str (.getMarketTypeVariant market))
                 (.getMaxUnitValue market)
                 (.getMenuPath market)
@@ -102,7 +104,7 @@
                      (.getCurrency prices)
                      (.getInPlayDelay prices)
                      (.isDiscountAllowed prices)
-                     (from-long (.getRefreshTime prices)) 
+                     (from-long (.getRefreshTime prices))
                      (.getMarketBaseRate prices)
                      (.getMarketId prices)
                      (.getMarketInformation prices)
@@ -191,17 +193,17 @@
                               nil ; market suspend time
                               (from-long (Long/parseLong (nth % 4))) ; market time
                               (nth % 2) ; market type
-                              nil ; market type variant 
-                              nil ; max unit value 
+                              nil ; market type variant
+                              nil ; max unit value
                               (nth % 5) ; menuPath
-                              nil ; min unit value 
-                              (nth % 1) ; market name 
+                              nil ; min unit value
+                              (nth % 1) ; market name
                               (Integer/parseInt (nth % 12)) ; number of winners
                               nil ; parent event id
                               nil ; runners
-                              nil ; runners may be added 
-                              nil ; timezone 
-                              nil ; unit 
+                              nil ; runners may be added
+                              nil ; timezone
+                              nil ; unit
                               (nth % 3); status
                               (Integer/parseInt (nth % 7)) ; bet delay
                               (Integer/parseInt (nth % 8)) ; exchange-id
@@ -232,7 +234,7 @@
        (if country-codes
          (do
            (doseq [c country-codes]
-             (.addCountry array-of-country-codes c)) 
+             (.addCountry array-of-country-codes c))
            (.setCountries req array-of-country-codes)))
        (if from-date
          (do
@@ -330,7 +332,7 @@
            :size-matched (.getSizeMatched %)
            :success (.getSuccess %))
      result))
-    )  
+    )
   )
 
 (defn make-bet [market-id selection-id price size bet-type]
@@ -351,8 +353,8 @@
 (defn make-updated-bet [bet-id new-price new-size new-bet-persistence-type old-price old-size old-bet-persistence-type]
   (let [bet (generated.exchange.BFExchangeServiceStub$UpdateBets.)]
     (.setBetId bet bet-id)
-    (if new-price (.setNewPrice bet new-price)) 
-    (if new-size (.setNewSize bet new-size)) 
+    (if new-price (.setNewPrice bet new-price))
+    (if new-size (.setNewSize bet new-size))
     (.setNewBetPersistenceType bet new-bet-persistence-type)
     (.setOldPrice bet old-price)
     (.setOldSize bet old-size)
@@ -399,7 +401,7 @@
        (make-small-lay-bet market-id selection-id price size)
        (make-small-back-bet market-id selection-id price size)))
 
-(defn reprice-bet 
+(defn reprice-bet
   "Cancells a bet and replaces it with a bet at a new price with size corresponding to the unmatched part of the cancelled bet"
   [bet new-price]
   ;; FIXME
@@ -413,7 +415,7 @@
     (println "REPRICE: cancel old-bet" cancelled-bet)
     (if (> (:size bet) new-size) (println "Repricing partial match: old: " (:size bet) "new:" new-size))
     (let [res (if (> new-size 2.0)
-                (first (place-bets exchange-uk new-bets)) 
+                (first (place-bets exchange-uk new-bets))
                 (make-small-bet (:market-id bet) (:selection-id bet) new-price new-size bet-type)
                 )]
       (println "REPRICE: place new bet" res)
@@ -449,15 +451,15 @@
   [exchange market-id]
   (let [result (ExchangeAPI/getMUBets exchange *context* market-id)]
    (map #(MUbet.
-          (str(.getBetCategoryType %)) 
+          (str(.getBetCategoryType %))
           (.getBetId %)
           (str (.getBetPersistenceType %))
           (str (.getBetType %))
-          (str (.getBetStatus %)) 
+          (str (.getBetStatus %))
           (.getBspLiability %)
           (.getMarketId %)
           (let [matched (.getTimeInMillis (.getMatchedDate %))]
-            (if (< matched 0) nil (from-long matched)))         
+            (if (< matched 0) nil (from-long matched)))
           (from-long (.getTimeInMillis (.getPlacedDate %)))
           (.getPrice %)
           (.getSelectionId %)

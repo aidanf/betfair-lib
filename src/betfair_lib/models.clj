@@ -1,5 +1,4 @@
-(ns betfair-lib.models
-  (:use [betfair.persistence]))
+(ns betfair-lib.models)
 
 (defrecord EventType [id
                       name

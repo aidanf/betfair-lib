@@ -1,8 +1,8 @@
 (ns betfair-lib.global
   (:import (demo.util APIContext)
-           (betfair.models Event EventType MarketSummary)
+           (betfair_lib.models Event EventType MarketSummary)
            (demo.handler GlobalAPI))
-  (:use [betfair.util]))
+  (:use [betfair-lib.util]))
 
 (def *context* (APIContext.)) ; default to new empty context
 

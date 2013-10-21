@@ -1,6 +1,14 @@
-(ns betfair-lib.core)
+(ns betfair-lib.core
+  (:use
+   [betfair-lib.config :as config]
+   [betfair-lib.exchange]
+   [betfair-lib.global]
 
-(defn foo
-  "I don't do a whole lot."
-  [x]
-  (println x "Hello, World!"))
+        )
+  )
+
+(defn -main
+  "Login to betfair and print out your balance."
+  (println "Loggin into betfair...")
+  (login config/username config/password)
+  )

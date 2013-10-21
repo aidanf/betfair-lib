@@ -1,6 +1,6 @@
 (ns betfair-lib.util
-  (:use 
-   [clojure.contrib.string :only (split)]
+  (:use
+   [clojure.string :only (split)]
    [clj-time.format])
   (:import (java.io File)))
 
@@ -63,5 +63,3 @@
    #(split-at n %)
    (windows (* n 2) coll)))
 ;; (take 5 (windows 10 (range 1000)))
-
-
