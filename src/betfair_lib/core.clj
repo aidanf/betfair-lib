@@ -5,10 +5,11 @@
    [betfair-lib.global]
 
         )
-  )
+   (:gen-class))
 
 (defn -main
+  [& args]
   "Login to betfair and print out your balance."
-  (println "Loggin into betfair...")
+  (println "Logging into betfair...")
   (login config/username config/password)
-  )
+  (println "Balance: " (get-balance)))

@@ -8,7 +8,7 @@
         )
   (:import (demo.handler ExchangeAPI)
            (java.util Calendar)
-           (betfair-lib.models MarketSummary Event Market Runner MarketPrice RunnerPrice Price MUbet)
+           (betfair_lib.models MarketSummary Event Market Runner MarketPrice RunnerPrice Price MUbet)
            (generated.exchange BFExchangeServiceStub BFExchangeServiceStub$APIRequestHeader BFExchangeServiceStub$GetAllMarketsReq BFExchangeServiceStub$GetAllMarkets BFExchangeServiceStub$PlaceBets BFExchangeServiceStub$UpdateBets BFExchangeServiceStub$ArrayOfInt BFExchangeServiceStub$ArrayOfCountryCode)))
 
 
