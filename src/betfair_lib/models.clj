@@ -64,6 +64,7 @@
                    ])
 
 
+
 (defrecord MarketPrice [bsp-market
                         currency-code
                         delay

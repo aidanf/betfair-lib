@@ -6,6 +6,7 @@
   :main betfair-lib.core
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [clj-time "0.6.0"]
+                 [org.clojure/math.numeric-tower "0.0.2"]
                  [org.clojure/data.json "0.1.3"]
                  [org.apache.ws.commons.schema/XmlSchema "1.4.3"]
                  [javax.activation/activation "1.1"]
