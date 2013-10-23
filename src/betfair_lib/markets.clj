@@ -52,6 +52,8 @@
     "4m" 536})
 
 (defn dist-to-time [dst]
+  {:pre [(string? dst)]
+   :post [number? %]}
   ((dist-time-estimates) (first (split dst #"\s+")))
   )
 

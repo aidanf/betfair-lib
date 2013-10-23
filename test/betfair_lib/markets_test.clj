@@ -22,4 +22,9 @@
     (is (= "Wolv 14th Mar" (race-meet-name market-fixture)))
     )
   )
-(run-tests)
+
+(deftest dist-to-time-test
+  (testing "We can estimate race time"
+    (is (= 338 (dist-to-time "2m5f")))
+    )
+  )
