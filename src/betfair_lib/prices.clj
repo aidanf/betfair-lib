@@ -1,7 +1,6 @@
 (ns betfair-lib.prices
   (:use [betfair-lib.models]
-        [betfair-lib.markets]
-        [clojure.core.typed])
+        [betfair-lib.markets])
   (:import (betfair_lib.models MarketPrice RunnerPrice)))
 
 (defn get-runner-price [rid market-price]

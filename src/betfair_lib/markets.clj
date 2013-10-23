@@ -52,7 +52,7 @@
     "4m" 536})
 
 (defn dist-to-time [dst]
-  ((dist-time-estimates) (first (split #"\s+" dst)))
+  ((dist-time-estimates) (first (split dst #"\s+")))
   )
 
 (defn tick-index
@@ -98,7 +98,7 @@
   )
 
 (defn race-meet-name [market]
-  (last  (split #"\\" (:menu-path market))))
+  (last  (split (.replace (:menu-path market) "\\" ">>") #">>")))
 
 (defn print-market [market]
   (println
