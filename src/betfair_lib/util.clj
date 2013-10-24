@@ -48,18 +48,3 @@
 (defn two-dp [n]
   (Double/parseDouble (format "%.2f" (double n)))
   )
-
-(defn windows
-  "break a collection into windows of size n"
-  [n coll]
-  (apply interleave
-         (map
-          #(partition n (drop % coll))
-          (range n))))
-
-(defn past-and-future-windows
-  [n coll]
-  (map
-   #(split-at n %)
-   (windows (* n 2) coll)))
-;; (take 5 (windows 10 (range 1000)))
