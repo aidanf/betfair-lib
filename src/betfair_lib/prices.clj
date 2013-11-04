@@ -28,8 +28,12 @@
                        ))
       (catch Exception ex (println ex)))))
 
-(defn take-fav-runner-prices
+(defn price->ordered-runner-prices [price]
+  (sort-by #(:last-price-matched %) (:runner-prices price))
+  )
+
+(defn price->take-fav-runner-prices
   ([n price]
      {:post [(= n (count %))]}
      (take n
-           (sort-by #(:last-price-matched %) (:runner-prices price)))))
+           (price->ordered-runner-prices price))))
