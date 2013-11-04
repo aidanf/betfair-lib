@@ -3,7 +3,7 @@
         [betfair-lib.markets])
   (:import (betfair_lib.models MarketPrice RunnerPrice)))
 
-(defn get-runner-price [rid market-price]
+(defn price->runner-price [rid market-price]
   "Given a set of runner prices, return the one that matches the rid"
   (first (filter #(= rid (:selection-id %)) (:runner-prices market-price))))
 
