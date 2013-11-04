@@ -129,3 +129,20 @@
     )
 
   )
+
+(defn in-play? [market-price]
+  "takes a market price and determines if the market is in-play"
+  {:pre [(number? (:delay market-price))]}
+   (= (:delay market-price) 0)
+   )
+
+(defn market->complete? [prices]
+  "check that the prices data for the race is complete"
+  (let
+      [[prices-ip prices-pre] (partition-by in-play? prices
+                           )]
+    (and
+     (> (count prices-ip) 0)
+     (> (count prices-pre) 0)
+     (contains? #{"CLOSED" "SUSPENDED"} (:market-status (last prices-ip)))
+     )))

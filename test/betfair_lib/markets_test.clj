@@ -19,7 +19,7 @@
 
 (deftest race-meet-name-test
   (testing "We can retrieve the race meet name"
-    (is (= "Wolv 14th Mar" (race-meet-name market-fixture)))
+    (is (= "Newc 3rd Oct" (race-meet-name market-fixture)))
     )
   )
 
