@@ -10,7 +10,7 @@
 (defn average-price-matched [rid coll]
   "Calculate the average price matched for a runner over a seq of prices"
   (/
-   (reduce + (map #(:last-price-matched (get-runner-price rid %)) coll))
+   (reduce + (map #(:last-price-matched (price->get-runner-price rid %)) coll))
    (count coll)))
 
 (defn print-runner-prices [runner-prices prices]
