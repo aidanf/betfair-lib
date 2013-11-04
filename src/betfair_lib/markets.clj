@@ -133,7 +133,7 @@
 (defn in-play? [market-price]
   "takes a market price and determines if the market is in-play"
   {:pre [(number? (:delay market-price))]}
-   (= (:delay market-price) 0)
+   (= (:delay market-price) 1)
    )
 
 (defn market->complete? [prices]
