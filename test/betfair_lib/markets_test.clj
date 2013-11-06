@@ -16,9 +16,12 @@
     (is (= 259 (tick-index 100)))
     (is (= 184 (tick-index 5.5)))
     (is (= 185 (tick-index 5.6)))
-    (is (= 186 (tick-index 5.7)))
-    )
-  )
+    (is (= 186 (tick-index 5.7))))
+  (testing "tick-delta"
+    (is (= 2 (tick-delta 5.7 5.5)))
+    (is (= 2 (tick-delta 5.5 5.7)))
+    (is (= 2 (tick-delta-raw 5.7 5.5)))
+    (is (= -2 (tick-delta-raw 5.5 5.7)))))
 
 (deftest print-market-test
   (testing "We can print a market"

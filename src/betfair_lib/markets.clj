@@ -62,16 +62,17 @@
   [t]
   (binary-search ticks t <)
   )
+
+(defn tick-delta-raw [t1 t2]
+  (try
+    (-
+      (tick-index t1)
+      (tick-index t2))
+    (catch Exception ex 0)))
+
 (defn tick-delta [t1 t2]
   "Return the number of ticks between two points on the ladder"
-  (try
-    (math/abs
-     (-
-      (tick-index t1)
-      (tick-index t2)))
-    (catch Exception ex 0)
-    )
-  )
+  (math/abs (tick-delta-raw t1 t2)))
 
 (defn tick-move
   "Return the price n ticks from t"
