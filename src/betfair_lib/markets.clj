@@ -65,10 +65,9 @@
 (defn tick-delta [t1 t2]
   "Return the number of ticks between two points on the ladder"
   (try
-    (math/abs
-     (-
-      (tick-index t1)
-      (tick-index t2)))
+    (-
+     (tick-index t1)
+     (tick-index t2))
     (catch Exception ex 0)
     )
   )
