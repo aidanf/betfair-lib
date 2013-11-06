@@ -60,7 +60,7 @@
 (defn tick-index
   "Return the index for a tick-price in the tick array"
   [t]
-  (binary-search ticks (float t) <)
+  (binary-search ticks t <)
   )
 (defn tick-delta [t1 t2]
   "Return the number of ticks between two points on the ladder"
