@@ -173,14 +173,14 @@
 (defn decode-market-data
   "Transform the string returned for betfair get-all-markets call into a vec of markets"
   [data]
-  (let [lines (rest (split #":" data))
-        fields (map #(split #"~" %) lines)
+  (let [lines (rest (split data #":"))
+        fields (map #(split % #"~") lines)
         markets (map
                  #(Market. (if (= (nth % 14) "Y") true false)  ; BSP market
                               (nth % 9) ; ISO3 country code
                               nil ; coupon links
                               nil ; discount allowed
-                              (vec (map parse-int (rest (vec (split #"/" (nth % 6)))))) ; event hierarchy
+                              (vec (map parse-int (rest (vec (split (nth % 6) #"/"))))) ; event hierarchy
                               nil ; event type id
                               nil ; interval
                               (from-long (Long/parseLong (nth % 10))) ; last refresh

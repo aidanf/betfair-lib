@@ -37,11 +37,14 @@
 (defn dump-to-file [obj filename]
   (spit filename  (json-str obj)))
 
-(defn load-from-file [filename]
-  (let [json-data (read-json (slurp filename))]
+(defn load-from-string [s]
+  (let [json-data (read-json s)]
     (if (map? json-data)
       (replace-json-strings-with-dates json-data)
       (vec (map #(replace-json-strings-with-dates %) json-data)))))
+
+(defn load-from-file [filename]
+  (load-from-string (slurp filename)))
 
 (defn complete-market-prices? [prices]
   ;; TODO
