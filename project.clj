@@ -1,6 +1,6 @@
 (defproject betfair-lib "0.1.0-SNAPSHOT"
   :description "A clojure library for accessing the betfair API"
-  :url "http://example.com/FIXME"
+  :url "http://github.com/aidanf/betfair-lib"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :main betfair-lib.core
