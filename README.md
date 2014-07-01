@@ -64,10 +64,6 @@ Then authenticate with betfair and start calling API methods.
 (login "username" "password")
 (println "Balance: " (get-balance))
 
-;; Or use the with-login macro
-
-(with-login "username" "password"
-  (println "Balance: " (get-balance)))
 ```
 
 To see the full list of methods check out the betfair api documentation linked above or read the files global.clj and exchange.clj.
