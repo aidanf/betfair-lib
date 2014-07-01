@@ -29,6 +29,8 @@ The list of methods that are implemented are:
 * cancel-bets
 * update-bet
 
+See the betfair documentation for descriptions of each of these methods. There are also some higher level functions for interacting with betfair. Check the source for details.
+
 # Installation
 To use this library, you'll need to install the betfair java api demo. It's not on clojars, so you'll need to install it manually into your local maven repository. It's included in this repo for convenience.
 
