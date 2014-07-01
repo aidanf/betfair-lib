@@ -41,9 +41,9 @@ To use this library, you'll need to install the betfair java api demo. It's not 
 5. Install it into your local maven repository.
 
 ```
-git clone ....
+git clone git@github.com:aidanf/betfair-lib.git
 cd betfair-lib
-mvn install:install-file -Dfile=./assets/APIDemo-1.0.jar -DgroupId=com.betfair.api -DartifactId=APIDemo -Dversion=1.0 -Dpackaging=jar
+mvn install:install-file -Dfile=./extras/APIDemo-1.0.jar -DgroupId=com.betfair.api -DartifactId=APIDemo -Dversion=1.0 -Dpackaging=jar
 lein install
 ```
 
