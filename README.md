@@ -4,6 +4,31 @@ In general, this api follows the naming and arguments that are described in the 
 
 This wrapper doesn't implement the full API - several API calls are different ways of getting the same information, in which case we only implement on of them - but it implements a fully functional subset.  There is enough of the api implemented to build a full market trading bot for betfair - reading markets, tracking prices, placing and cancelling bets.
 
+The list of methods that are implemented are:
+
+### Global API
+* login
+* logout
+* usage
+* usage-methods
+* usage-timed
+* get-active-event-types
+* get-all-event-types
+* get-events
+* get-sub-events
+* get-markets-summaries
+
+### Exchange API
+* get-funds
+* get-balance
+* get-market
+* get-market-prices
+* get-all-markets
+* get-mu-bets
+* place-bets
+* cancel-bets
+* update-bet
+
 # Installation
 To use this library, you'll need to install the betfair java api demo. It's not on clojars, so you'll need to install it manually into your local maven repository. It's included in this repo for convenience.
 
